@@ -1,16 +1,16 @@
-<script setup ></script>
+<script setup></script>
 
 <template>
   <v-app>
-    <!--barra superior-->
-    <v-app-bar app color ="primary" dark>
+    <!--App barra superior-->
+    <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <v-toolbar-tittle>Ramon 602</v-toolbar-tittle>
+      <v-toolbar-title>Ramon 602</v-toolbar-title>
     </v-app-bar>
 
     <!--Contenido principal-->
     <v-main>
-        <router-view />
+      <router-view />
     </v-main>
   </v-app>
 </template>
