@@ -45,18 +45,41 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { useUsuarioStore } from '@/stores/usuario_store'
+import { ref } from 'vue'
 
-const usuario = ref('');
-const contrasenia = ref('');
-const valid = ref(false);
-const mensaje = ref('');
-const tipo = ref('');
-const mensajeVisible = ref(false);
-const icono = ref('');
+const usuarioStore = useUsuarioStore()
+
+const usuario = ref('')
+const contrasenia = ref('')
+const valid = ref(false)
+const mensaje = ref('')
+const tipo = ref('')
+const mensajeVisible = ref(false)
+const icono = ref('')
 
 const rules = {
   required: (value) => !!value || 'Este campo es obligatorio.',
   email: (value) => /.+@.+\..+/.test(value) || 'Debe ser un correo válido.',
-};
+}
+
+const login = async () => {
+  mensajeVisible.value = false
+  if (valid.value) {
+    try {
+      const payload = { usuario: usuario.value, contrasenia: contrasenia.value }
+      const resp = await usuarioStore.login(payload)
+      console.log(resp)
+      mensaje.value = resp.mensaje
+      tipo.value = 'success'
+      icono.value = '$success'
+    } catch (error) {
+      mensaje.value = error.mensaje
+      tipo.value = 'error'
+      icono.value = '$error'
+    } finally {
+      mensajeVisible.value = true
+    }
+  }
+}
 </script>
